@@ -10,6 +10,23 @@ https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 - vagrant up (in the repo working directory where the VagrantFile is)
 - vagrant ssh
 
+## Getting Started
+
+A couple of things. NSO when it is installed comes with a ton of documentation in the `nso-install/doc` directory. Check it out.
+
+NSO comes with a bunch of examples in the `nso-install/examples.ncs` directroy. Note that if you follow them, you will want to stop the NSO running in `nso-run` (using `ncs --stop` in the `nso-run` directory) since you can only have one instance of NSO running at a time and most of the examples assume you will use `ncs-setup` to set up a new instance of NSO to run the particular example. 
+
+Please go through the five day training I put together (with the help of my friends at the time):
+- https://learninglabs.cisco.com/modules/nso-basics (updated to be more readable)
+- https://github.com/NSO-developer/nso-5-day-training (an older revision, but easier to access)
+
+## Disclaimer
+
+The NSO NEDs that come with the free install ** are limited and do not have all commands **,
+see this post:
+- [overview](https://community.cisco.com/t5/nso-developer-hub-discussions/what-are-the-limitations-of-the-free-nso-evaluation-download/td-p/3719787)
+- [common error if trying with real device: Error: External error in the NED implementation for device mydevice: not implemented](https://community.cisco.com/t5/nso-developer-hub-discussions/error-external-error-in-the-ned-implementation-for-device/td-p/3708492) for details. 
+
 ## Vagrant Specific Stuff
 
 You should be able to access the NSO GUI over the ports exposed from the VM on your laptop. You can always verify what the port mapping is to your laptop by going `vagrant port`. NSO GUI is by default 
@@ -55,26 +72,6 @@ If you are using the newest version (version 5.x or above), you shouldn't have t
 As part of the Vagrant set up, I add a shared folder, in my case it is called `ntc-data`, but you can call it whatever you want. If you want to use updated neds, I suggest using that shared folder to transfer them in, or update the playbook to copy them over at provision time from the files directory. Make sure to put them in the packages directory and run `make clean all` in the `package/src` folder if it was compiled for a different release of NSO than what you have installed. 
 
 The shared folder is also good for exporting or pulling in service packages for testing, make sure to change owners though...otherwise you might get permission issues. 
-
-
-
-## Disclaimer
-
-The NSO NEDs that come with the free install ** are limited and do not have all commands **,
-see this post:
-- [overview](https://community.cisco.com/t5/nso-developer-hub-discussions/what-are-the-limitations-of-the-free-nso-evaluation-download/td-p/3719787)
-- [common error if trying with real device: Error: External error in the NED implementation for device mydevice: not implemented](https://community.cisco.com/t5/nso-developer-hub-discussions/error-external-error-in-the-ned-implementation-for-device/td-p/3708492) for details. 
-
-
-## Getting Started
-
-A couple of things. NSO when it is installed comes with a ton of documentation in the `nso-install/doc` directory. Check it out.
-
-NSO comes with a bunch of examples in the `nso-install/examples.ncs` directroy. Note that if you follow them, you will want to stop the NSO running in `nso-run` (using `ncs --stop` in the `nso-run` directory) since you can only have one instance of NSO running at a time and most of the examples assume you will use `ncs-setup` to set up a new instance of NSO to run the particular example. 
-
-Please go through the five day training I put together (with the help of my friends at the time):
-- https://learninglabs.cisco.com/modules/nso-basics (updated to be more readable)
-- https://github.com/NSO-developer/nso-5-day-training (an older revision, but easier to access)
 
 # How Can I Edit text files (like a service package) on the local VM?
 
