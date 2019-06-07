@@ -1,0 +1,38 @@
+---
+
+      - name: Copy .bashrc
+        copy: src=./files/bashrc dest=/home/{{ user }}/.bashrc owner={{ user }} group={{ user }}
+
+      - name: INSTALL APT PACKAGES
+        apt: name={{ item }} update_cache=true
+        with_items:
+          - software-properties-common
+          - git
+          - tree
+          - traceroute
+          - python-dev
+          - python-pip
+          - libxml2-dev
+          - libxslt1-dev
+          - zlib1g-dev
+          - vim
+          - libssl-dev
+          - libffi-dev
+          - fonts-inconsolata
+          - python-setuptools
+          - libxml2-utils
+          - ant
+          - default-jdk
+
+
+      - name: INSTALL PIP PACKAGES
+        pip: name={{ item }} executable=/usr/bin/pip state=latest
+        with_items:
+          - requests
+          - virtualenv
+          - virtualenvwrapper
+          - ansible
+          - ncclient
+
+
+

@@ -1,0 +1,29 @@
+---
+
+    - name: Create nso install Directory
+      become_user: "{{ user }}"
+      file: path=/home/{{ user }}/nso-install state=directory owner={{ user }} group={{ user }}
+
+    - name: Copy nso Installer
+      become_user: "{{ user }}"
+      copy: src=./files/nso-{{ nso_version }}.linux.x86_64.installer.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
+
+    - name: INSTALL nso
+      command: "sh /home/{{ user }}/nso-{{ nso_version }}.linux.x86_64.installer.bin /home/{{ user }}/nso-install"
+      become_user: "{{ user }}"
+      ignore_errors: yes
+      register: nso_install
+
+    - name: DEBUG nso INSTALL
+      debug:
+       var: nso_install
+
+    - name: Remove nso Installer
+      become_user: "{{ user }}"
+      file: 
+        path: /home/{{ user }}/nso-{{ nso_version }}.linux.x86_64.installer.bin
+        state: absent 
+
+    - name: Create nso run Directory
+      become_user: "{{ user }}"
+      file: path=/home/{{ user }}/nso-run state=directory owner={{ user }} group={{ user }}

@@ -1,0 +1,1 @@
+Download it here: https://developer.cisco.com/docs/nso/#!getting-nso/downloads
