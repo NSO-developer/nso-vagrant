@@ -1,0 +1,52 @@
+# re-used from https://github.com/NSO-developer/nso-ansible-ops/blob/master/install_nso.yml
+  # - name: Create nso install Directory
+  #   become_user: root
+  #   become: true
+  #   file: 
+  #     path: "{{ pkgdst }}/distribution/"
+  #     state: "directory"
+    
+  - name: Copy nso Installer
+    become_user: "{{ user }}"
+    become: true
+    copy: 
+      src: "./files/{{ nsobin }}" 
+      dest: "$HOME/"
+
+  # - name: Install NSO
+  #   become: true
+  #   become_user: root
+  #   shell: "sh $HOME/{{ nsobin }} --system-install"
+
+  # - name: Install packages
+  #   shell: for file in {{pkgdst}}/distribution/packages/*; do tar -zxf $file -C /var/opt/ncs/packages;done
+  #   become: true
+  #   become_user: root
+  #   when: custom_neds == True
+
+  # - name: Install ncs.conf
+  #   # use an ncs.conf under source control so that exact configuration parameters can be installed
+  #   become: true
+  #   become_user: root
+  #   copy: 
+  #     src: "files/ncs.conf" 
+  #     dest: "/etc/ncs"
+
+  #
+  # Change group permissions and other misc so that less is running as root.
+  # Do this by uploading and executing a script to keep it all in one place
+  #
+  - name: Copy group and permissions setup script to the target
+    copy: 
+      src: "files/ncsadmin_group_setup.sh" 
+      dest: "/tmp/"
+
+  # - name: Configure groups and permissions
+  #   become: true
+  #   become_user: root
+  #   shell: "sh /tmp/ncsadmin_group_setup.sh"
+
+  # - name: Reload packages
+  #   become: true
+  #   become_user: root
+  #   shell: source /opt/ncs/current/ncsrc; echo "request packages reload" | ncs_cli

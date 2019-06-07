@@ -8,9 +8,21 @@
     nso_version: "5.1.0.1"
     # for example for nso-5.1.0.1.linux.x86_64.installer nso_version is "5.1.0.1"
     user: vagrant
-    hostname: ntc
     install_type: system_install
+    # nso-ansible-ops vars
+    nsobin: "nso-{{ nso_version }}.linux.x86_64.installer.bin"
+    nso_install_path: "/opt/ncs/ncs-{{ nso_version }}"
+    pkgdst: "/var/opt/ncs/packages"
+    # put your neds in the files and update here to copy them over
+    custom_neds: False
+    pkgsrc: "files/neds.tar.gz"
+    nso_install_ncsrc: "{{ nso_install_path }}/ncsrc"
+    # "service ncs start" located in /etc/init.d/ncs
 
   tasks:
     - import_tasks: tasks/linux_packs.yml
-    - import_tasks: tasks/install_nso.yml
+    # - import_tasks: tasks/install_nso.yml
+    - import_tasks: tasks/local_install.yml
+      when: install_type == "local_install"
+    - import_tasks: tasks/system_install.yml
+      when: install_type == "system_install"
