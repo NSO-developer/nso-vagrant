@@ -9,6 +9,7 @@
     # for example for nso-5.1.0.1.linux.x86_64.installer nso_version is "5.1.0.1"
     user: vagrant
     hostname: ntc
+    install_type: system_install
 
   tasks:
     - import_tasks: tasks/linux_packs.yml
