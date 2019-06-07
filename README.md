@@ -34,7 +34,7 @@ alias servicepackage='ncs-make-package --service-skeleton python-and-template --
 
 ## Disclaimer
 
-The NSO NEDs that come with the free install ** are limited and do not have all commands **,
+The NSO NEDs that come with the free install **are limited and do not have all commands**,
 see this post:
 - [overview](https://community.cisco.com/t5/nso-developer-hub-discussions/what-are-the-limitations-of-the-free-nso-evaluation-download/td-p/3719787)
 - [common error if trying with real device: Error: External error in the NED implementation for device mydevice: not implemented](https://community.cisco.com/t5/nso-developer-hub-discussions/error-external-error-in-the-ned-implementation-for-device/td-p/3708492) for details. 
