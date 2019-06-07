@@ -22,6 +22,16 @@ Please go through the five day training I put together (with the help of my frie
 - https://learninglabs.cisco.com/modules/nso-basics (updated to be more readable)
 - https://github.com/NSO-developer/nso-5-day-training (an older revision, but easier to access)
 
+### FYI Bash Aliases
+
+I added a few bash aliases for commonly used tasks in NSO:
+
+```
+alias kickoffnso='ncs_cli -u admin -C'
+alias reloadbash='source ~/.bashrc'
+alias servicepackage='ncs-make-package --service-skeleton python-and-template --augment /ncs:services '
+```
+
 ## Disclaimer
 
 The NSO NEDs that come with the free install ** are limited and do not have all commands **,
