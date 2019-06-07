@@ -1,5 +1,7 @@
 # Vagrant NSO on Ubuntu 18 for Getting Started
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/jabelk/nso-getting-started)
+
 ## link to download NSO
 https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 
