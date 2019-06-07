@@ -60,7 +60,7 @@ Vagrant.configure(2) do |config|
   #     sudo bash -c "echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys"
   #   SHELL
   # end
-	config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --dest $HOME/nso-run", :privileged => false
+  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --dest $HOME/nso-run", :privileged => false
   # if installing NSO version 5 and above (names changed for install ned packages)
   config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-nx-cli-3.0 $HOME/nso-run/packages/cisco-nx > /dev/null 2>&1", :privileged => false
   config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-ios-cli-3.8 $HOME/nso-run/packages/cisco-ios > /dev/null 2>&1", :privileged => false
