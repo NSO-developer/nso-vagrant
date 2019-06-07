@@ -5,10 +5,12 @@ https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 
 ## Prereqs:
 - Install Vagrant, Install Ansible / Python locally on your laptop (outside the scope of this tutorial, just google it)
-- Clone this repo
-- Download the NSO LINUX bin installer and put it in the repo's `files` directory 
-- vagrant up (in the repo working directory where the VagrantFile is)
-- vagrant ssh
+
+## Steps:
+- Clone this repo: `git clone https://github.com/jabelk/nso-getting-started.git`
+- Download the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.1.0.1.linux.x86_64.installer.bin` (for example)
+- `vagrant up` (in the repo working directory where the VagrantFile is)
+- `vagrant ssh`
 
 ## Getting Started
 
