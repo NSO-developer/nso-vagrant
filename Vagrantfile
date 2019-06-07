@@ -48,7 +48,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.ssh.forward_agent    = true
-  config.ssh.insert_key       = false
+  config.ssh.insert_key       = true
   # meant for passwordless login from unix / mac
   # config.ssh.private_key_path =  ["~/.vagrant.d/insecure_private_key","~/.ssh/id_rsa"]
   # config.vm.provision :shell, privileged: false do |s|
