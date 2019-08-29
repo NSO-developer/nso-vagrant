@@ -10,7 +10,20 @@ https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 
 ## Steps:
 - Clone this repo: `git clone https://github.com/jabelk/nso-getting-started.git`
-- Download the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.1.0.1.linux.x86_64.installer.bin` (for example)
+- Download and unpack the signed binary (`nso-5.1.0.1.darwin.x86_64.signed.bin` for example) -> use `sh` to unpack it (`sh nso-5.1.0.1.darwin.x86_64.signed.bin` the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.1.0.1.linux.x86_64.installer.bin` (for example)
+```
+Downloads$ sh nso-5.1.0.1.darwin.x86_64.signed.bin
+Unpacking...
+Verifying signature...
+Downloading CA certificate from http://www.cisco.com/security/pki/certs/crcam2.cer ...
+Successfully downloaded and verified crcam2.cer.
+Downloading SubCA certificate from http://www.cisco.com/security/pki/certs/innerspace.cer ...
+Successfully downloaded and verified innerspace.cer.
+Successfully verified root, subca and end-entity certificate chain.
+Successfully fetched a public key from tailf.cer.
+Successfully verified the signature of nso-5.1.0.1.darwin.x86_64.installer.bin using tailf.cer
+Downloads$
+```
 - `vagrant up` (in the repo working directory where the VagrantFile is)
 - `vagrant ssh`
 
