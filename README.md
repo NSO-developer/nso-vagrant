@@ -10,9 +10,9 @@ https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 
 ## Steps:
 - Clone this repo: `git clone https://github.com/jabelk/nso-getting-started.git`
-- Download and unpack the signed binary (`nso-5.1.0.1.darwin.x86_64.signed.bin` for example) -> use `sh` to unpack it (`sh nso-5.1.0.1.darwin.x86_64.signed.bin` the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.1.0.1.linux.x86_64.installer.bin` (for example)
+- Download and unpack the linux signed binary (`nso-5.2.1.linux.x86_64.signed.bin` for example) -> use `sh` to unpack it (`sh nso-5.2.1.darwin.x86_64.signed.bin` the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.2.1.linux.x86_64.installer.bin` (for example)
 ```
-Downloads$ sh nso-5.1.0.1.darwin.x86_64.signed.bin
+Downloads$ sh nso-5.2.1.darwin.x86_64.signed.bin
 Unpacking...
 Verifying signature...
 Downloading CA certificate from http://www.cisco.com/security/pki/certs/crcam2.cer ...
@@ -21,7 +21,7 @@ Downloading SubCA certificate from http://www.cisco.com/security/pki/certs/inner
 Successfully downloaded and verified innerspace.cer.
 Successfully verified root, subca and end-entity certificate chain.
 Successfully fetched a public key from tailf.cer.
-Successfully verified the signature of nso-5.1.0.1.darwin.x86_64.installer.bin using tailf.cer
+Successfully verified the signature of nso-5.2.1.darwin.x86_64.installer.bin using tailf.cer
 Downloads$
 ```
 - `vagrant up` (in the repo working directory where the VagrantFile is)
@@ -132,7 +132,7 @@ If you run vagrant provision more than once you will see this error, this is exp
 
 ```
 TASK [INSTALL nso] *************************************************************
-fatal: [default]: FAILED! => {"changed": true, "cmd": ["sh", "/home/vagrant/nso-5.1.0.1.linux.x86_64.installer.bin", "/home/vagrant/nso-install"], "delta": "0:00:00.007180", "end": "2019-06-07 03:11:08.397758", "msg": "non-zero return code", "rc": 1, "start": "2019-06-07 03:11:08.390578", "stderr": "", "stderr_lines": [], "stdout": "ERROR ** /home/vagrant/nso-install is not empty, aborting installation", "stdout_lines": ["ERROR ** /home/vagrant/nso-install is not empty, aborting installation"]}
+fatal: [default]: FAILED! => {"changed": true, "cmd": ["sh", "/home/vagrant/nso-5.2.1.linux.x86_64.installer.bin", "/home/vagrant/nso-install"], "delta": "0:00:00.007180", "end": "2019-06-07 03:11:08.397758", "msg": "non-zero return code", "rc": 1, "start": "2019-06-07 03:11:08.390578", "stderr": "", "stderr_lines": [], "stdout": "ERROR ** /home/vagrant/nso-install is not empty, aborting installation", "stdout_lines": ["ERROR ** /home/vagrant/nso-install is not empty, aborting installation"]}
 ...ignoring
 
 TASK [DEBUG nso INSTALL] *******************************************************
@@ -141,7 +141,7 @@ ok: [default] => {
         "changed": true,
         "cmd": [
             "sh",
-            "/home/vagrant/nso-5.1.0.1.linux.x86_64.installer.bin",
+            "/home/vagrant/nso-5.2.1.linux.x86_64.installer.bin",
             "/home/vagrant/nso-install"
         ],
         "delta": "0:00:00.007180",
