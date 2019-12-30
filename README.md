@@ -10,7 +10,7 @@ https://developer.cisco.com/docs/nso/#!getting-nso/downloads
 
 ## Steps:
 - Clone this repo: `git clone https://github.com/jabelk/nso-getting-started.git`
-- Download and unpack the linux signed binary (`nso-5.2.1.linux.x86_64.signed.bin` for example) -> use `sh` to unpack it (`sh nso-5.2.1.darwin.x86_64.signed.bin` the NSO LINUX bin installer and put it in the repo's `files` directory: `nso-getting-started/files/nso-5.2.1.linux.x86_64.installer.bin` (for example)
+- Download and unpack the linux signed binary (`nso-5.2.1.linux.x86_64.signed.bin` for example) -> use `sh` to unpack it (`sh nso-5.2.1.darwin.x86_64.signed.bin` the NSO LINUX bin installer and put it in this repo's `files` directory: `nso-vagrant/files/nso-5.2.1.linux.x86_64.installer.bin` (for example)
 ```
 Downloads$ sh nso-5.2.1.darwin.x86_64.signed.bin
 Unpacking...
