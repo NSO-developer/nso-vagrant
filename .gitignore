@@ -3,7 +3,7 @@
 
 # nso installer
 files/nso-*.bin
-
+files/ncs-*.bin
 #ansible
 *.retry
 
