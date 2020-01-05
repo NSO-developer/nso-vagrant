@@ -6,6 +6,9 @@
   vars:
     nso_install_location: "/home/{{ ansible_ssh_user }}/nso-install"
     nso_version: "5.2.1"
+    nxos_ned_version: "5.13"
+    iosxr_ned_version: "7.17"
+    ios_ned_version: "6.39"
     # for example for nso-5.2.1.linux.x86_64.installer.bin nso_version is "5.2.1"
     user: vagrant
     hostname: ntc

@@ -21,7 +21,7 @@ Though it should work on other systems...pretty standard stuff.
 1. Download the Cisco NSO **Cisco IOS (XE) NED, Cisco IOS XR NED, Cisco NXOS NED** (`ncs-NSOVERSION-cisco-PLATFORM-NEDVERSION.signed.bin`)
 1. Move the installer file **and** the three NED files from your Downloads to where you cloned this repo, in its `files` directory. (for example) `nso-vagrant/files/nso-VERSION-NUMBER.linux.x86_64.signed.bin` 
 1. `vagrant up` (in the repo working directory where the VagrantFile is)
-1. `vagrant ssh`
+1. `vagrant ssh` and then `ncs_cli -C -u admin` to login to NSO. OR [http://localhost:8009] for the NSO GUI
 
 ## Getting Started
 

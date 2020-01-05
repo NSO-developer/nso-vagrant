@@ -7,8 +7,6 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. 
   config.vm.network "forwarded_port", guest: 80, host: 8089
   config.vm.network "forwarded_port", guest: 443, host: 8449
-  config.vm.network "forwarded_port", guest: 4000, host: 4009
-  config.vm.network "forwarded_port", guest: 5000, host: 5003
   config.vm.network "forwarded_port", guest: 8080, host: 8009
 
   # Create a private network, which allows host-only access to the machine
@@ -35,7 +33,7 @@ Vagrant.configure(2) do |config|
      vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
   #
   #   # Customize the amount of memory on the VM:
-     vb.memory = "4096"
+     vb.memory = "8096"
   end
   #
   # View the documentation for the provider you are using for more
@@ -49,36 +47,22 @@ Vagrant.configure(2) do |config|
 
   config.ssh.forward_agent    = true
   config.ssh.insert_key       = true
-  # meant for passwordless login from unix / mac
-  # config.ssh.private_key_path =  ["~/.vagrant.d/insecure_private_key","~/.ssh/id_rsa"]
-  # config.vm.provision :shell, privileged: false do |s|
-  #   ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
-  #   s.inline = <<-SHELL
-  #     echo #{ssh_pub_key} >> /home/$USER/.ssh/authorized_keys
-  #     # uncomment if .ssh does not exist
-  #     # sudo mkdir /home/vagrant/.ssh
-  #     sudo bash -c "echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys"
-  #   SHELL
-  # end
-  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --dest $HOME/nso-run", :privileged => false
+  config.vm.provision :shell, :inline => "rm -rf $HOME/nso-install/packages/neds/ && mkdir -p $HOME/nso-install/packages/neds/", :privileged => false
+# 
+  config.vm.provision :shell, :inline => "rm -rf $HOME/nso-install/packages/neds/ && mkdir -p $HOME/nso-install/packages/neds/", :privileged => false
+  config.vm.provision :shell, :inline => "mv $HOME/cisco-* $HOME/nso-install/packages/neds/", :privileged => false
+  config.vm.provision :shell, :inline => "rm cisco_x509_verify_release.py && rm README.signature && rm tailf.cer && rm n*5.2.1*", :privileged => false
+  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --package cisco-ios-cli-6.39 --package cisco-nx-cli-5.13 --package cisco-iosxr-cli-7.17 --dest $HOME/nso-run", :privileged => false
   # if installing NSO version 5 and above (names changed for install ned packages)
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-nx-cli-3.0 $HOME/nso-run/packages/cisco-nx > /dev/null 2>&1", :privileged => false
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-ios-cli-3.8 $HOME/nso-run/packages/cisco-ios > /dev/null 2>&1", :privileged => false
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-iosxr-cli-3.5 $HOME/nso-run/packages/cisco-iosxr > /dev/null 2>&1", :privileged => false
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/a10-acos-cli-3.0 $HOME/nso-run/packages/a10-acos > /dev/null 2>&1", :privileged => false
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/dell-ftos-cli-3.0 $HOME/nso-run/packages/dell-ftos > /dev/null 2>&1", :privileged => false
-  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/juniper-junos-nc-3.0 $HOME/nso-run/packages/juniper-junos > /dev/null 2>&1", :privileged => false
-  # if installing NSO version 4 and uncomment these and comment the lines above
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-nx $HOME/nso-run/packages/cisco-nx > /dev/null 2>&1", :privileged => false
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-ios $HOME/nso-run/packages/cisco-ios > /dev/null 2>&1", :privileged => false
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-iosxr $HOME/nso-run/packages/cisco-iosxr > /dev/null 2>&1", :privileged => false
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/a10-acos $HOME/nso-run/packages/a10-acos > /dev/null 2>&1", :privileged => false
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/dell-ftos $HOME/nso-run/packages/dell-ftos > /dev/null 2>&1", :privileged => false
-  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/juniper-junos $HOME/nso-run/packages/juniper-junos > /dev/null 2>&1", :privileged => false
-
-  # Start NSO daemon (which needs to be started each time VM shuts down) 
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-nx-cli-3.0 $HOME/nso-run/packages/cisco-nx > /dev/null 2>&1", :privileged => false
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-ios-cli-3.8 $HOME/nso-run/packages/cisco-ios > /dev/null 2>&1", :privileged => false
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-iosxr-cli-3.5 $HOME/nso-run/packages/cisco-iosxr > /dev/null 2>&1", :privileged => false
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/a10-acos-cli-3.0 $HOME/nso-run/packages/a10-acos > /dev/null 2>&1", :privileged => false
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/dell-ftos-cli-3.0 $HOME/nso-run/packages/dell-ftos > /dev/null 2>&1", :privileged => false
+  # config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/juniper-junos-nc-3.0 $HOME/nso-run/packages/juniper-junos > /dev/null 2>&1", :privileged => false
+  # # Start NSO daemon (which needs to be started each time VM shuts down) 
+    # Create A few Netsims to start with
+  config.vm.provision :shell, :inline => "echo Turning on NSO, this may take a bit.", :privileged => false
   config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs --with-package-reload-force", :privileged => false
-  # Create A few Netsims to start with
-  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs-netsim create-network $HOME/nso-run/packages/cisco-ios 3 netsim-ios-", :privileged => false
-
+  config.vm.provision :shell, :inline => "echo All done! Use ncs_cli -C -u admin or the bash alias kickoffnso to login to the NSO cli"
 end

@@ -12,6 +12,8 @@
           - traceroute
           - python-dev
           - python-pip
+          - python3
+          - python3-pip
           - libxml2-dev
           - libxslt1-dev
           - zlib1g-dev
@@ -31,8 +33,6 @@
           - requests
           - virtualenv
           - virtualenvwrapper
-          - ansible
-          - ncclient
 
 
 

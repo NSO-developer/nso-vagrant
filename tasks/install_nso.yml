@@ -6,9 +6,46 @@
 
     - name: Copy nso Installer
       become_user: "{{ user }}"
-      copy: src=./files/nso-{{ nso_version }}.linux.x86_64.installer.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
+      copy: src=./files/nso-{{ nso_version }}.linux.x86_64.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
 
-    - name: INSTALL nso
+    - name: Copy NXOS NED Installer
+      become_user: "{{ user }}"
+      copy: src=./files/ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
+
+    - name: Copy IOSXR NED Installer
+      become_user: "{{ user }}"
+      copy: src=./files/ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
+
+    - name: Copy IOS NED Installer
+      become_user: "{{ user }}"
+      copy: src=./files/ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
+
+    - name: Extract Installer Bin from Signed Bin
+      command: "sh /home/{{ user }}/{{ item }}"
+      become_user: "{{ user }}"
+      ignore_errors: yes
+      register: nso_install
+      loop: 
+        - "nso-{{ nso_version }}.linux.x86_64.signed.bin"
+        - "ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}.signed.bin"
+        - "ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}.signed.bin"
+        - "ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}.signed.bin"
+
+    - name: Extract NEDs from tar.gz
+      command: "tar xf /home/{{ user }}/{{ item }}.tar.gz"
+      become_user: "{{ user }}"
+      ignore_errors: yes
+      register: nso_install
+      loop: 
+        - "ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}"
+        - "ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}"
+        - "ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}"
+
+    - name: DEBUG nso INSTALL
+      debug:
+       var: nso_install
+      
+    - name: INSTALL NSO 
       command: "sh /home/{{ user }}/nso-{{ nso_version }}.linux.x86_64.installer.bin /home/{{ user }}/nso-install"
       become_user: "{{ user }}"
       ignore_errors: yes
