@@ -21,7 +21,7 @@ Though it should work on other systems...pretty standard stuff.
 1. Download the Cisco NSO **Cisco IOS (XE) NED, Cisco IOS XR NED, Cisco NXOS NED** (`ncs-NSOVERSION-cisco-PLATFORM-NEDVERSION.signed.bin`)
 1. Move the installer file **and** the three NED files from your Downloads to where you cloned this repo, in its `files` directory. (for example) `nso-vagrant/files/nso-VERSION-NUMBER.linux.x86_64.signed.bin` 
 1. `vagrant up` (in the repo working directory where the VagrantFile is)
-1. `vagrant ssh` and then `ncs_cli -C -u admin` to login to NSO. OR [http://localhost:8009] for the NSO GUI
+1. `vagrant ssh` and then `ncs_cli -C -u admin` to login to NSO. OR http://localhost:8009 for the NSO GUI
 
 > note, if you restart the VM after installing (rather than just suspending), you will need to turn on the NSO application `source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs;`, if you get the following error `Cannot bind to internal socket 127.0.0.1:4569 : address already in use
 Daemon died status=20`, then NSO is already running. 
