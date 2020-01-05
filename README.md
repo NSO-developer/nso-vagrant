@@ -23,6 +23,9 @@ Though it should work on other systems...pretty standard stuff.
 1. `vagrant up` (in the repo working directory where the VagrantFile is)
 1. `vagrant ssh` and then `ncs_cli -C -u admin` to login to NSO. OR [http://localhost:8009] for the NSO GUI
 
+> note, if you restart the VM after installing (rather than just suspending), you will need to turn on the NSO application `source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs;`, if you get the following error `Cannot bind to internal socket 127.0.0.1:4569 : address already in use
+Daemon died status=20`, then NSO is already running. 
+
 ## Getting Started
 
 A couple of things. NSO when it is installed comes with a ton of documentation in the `nso-install/doc` directory. Check it out.
