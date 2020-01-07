@@ -38,7 +38,6 @@
       loop: "{{ ned_list }}"
 
     - name: Get List of ned tar filenames
-      warn: no
       shell: "rm *.tar.gz.signature"
 
     - name: Get List of ned tar filenames
