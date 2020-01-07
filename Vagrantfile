@@ -48,12 +48,11 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent    = true
   config.ssh.insert_key       = true
   config.vm.provision :shell, :inline => "rm -rf $HOME/nso-install/packages/neds/ && mkdir -p $HOME/nso-install/packages/neds/", :privileged => false
-  config.vm.provision :shell, :inline => "rm -rf $HOME/nso-install/packages/neds/ && mkdir -p $HOME/nso-install/packages/neds/", :privileged => false
   config.vm.provision :shell, :inline => "mv $HOME/cisco-* $HOME/nso-install/packages/neds/", :privileged => false
-  config.vm.provision :shell, :inline => "rm cisco_x509_verify_release.py && rm README.signature && rm tailf.cer && rm n*5.2.1*", :privileged => false
-  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --package cisco-ios-cli-6.39 --package cisco-nx-cli-5.13 --package cisco-iosxr-cli-7.17 --dest $HOME/nso-run", :privileged => false
-  # # Start NSO daemon (which needs to be started each time VM shuts down) 
+  config.vm.provision :shell, :inline => "rm cisco_x509_verify_release.py && rm README.signature && rm tailf.cer && rm n*5.*", :privileged => false
+  config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; $HOME/nso-install/bin/ncs-setup --dest $HOME/nso-run", :privileged => false
+  config.vm.provision :shell, :inline => "ln -s $HOME/nso-install/packages/neds/cisco-* $HOME/nso-run/packages/", :privileged => false
   config.vm.provision :shell, :inline => "echo Turning on NSO, this may take a bit.", :privileged => false
   config.vm.provision :shell, :inline => "source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs --with-package-reload-force", :privileged => false
-  config.vm.provision :shell, :inline => "echo All done! Use ncs_cli -C -u admin or the bash alias kickoffnso to login to the NSO cli"
+  config.vm.provision :shell, :inline => "echo All done! Login with vagrant ssh, and then use ncs_cli -C -u admin or the bash alias kickoffnso to login to the NSO cli"
 end

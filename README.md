@@ -73,7 +73,7 @@ https://code.visualstudio.com/docs/remote/remote-overview
 
 ## Shared Folder and NEDs
 
-As part of the Vagrant set up, I add a shared folder, in my case it is called `ntc-data`, but you can call it whatever you want. If you want to use updated neds, I suggest using that shared folder to transfer them in, or update the playbook to copy them over at provision time from the files directory. Make sure to put them in the packages directory and run `make clean all` in the `package/src` folder if it was compiled for a different release of NSO than what you have installed. 
+As part of the Vagrant set up, I add a shared folder, in my case it is called `vagrant-data`, but you can call it whatever you want. If you want to use updated neds, I suggest using that shared folder to transfer them in, or update the playbook to copy them over at provision time from the files directory. Make sure to put them in the packages directory and run `make clean all` in the `package/src` folder if it was compiled for a different release of NSO than what you have installed. 
 
 The shared folder is also good for exporting or pulling in service packages for testing, make sure to change owners though...otherwise you might get permission issues. 
 

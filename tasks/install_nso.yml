@@ -1,5 +1,23 @@
 ---
 
+    - name: Get List of ned filenames
+      shell: "ls files | grep ncs-*"
+      become: false
+      delegate_to: localhost
+      register: ned_list_raw
+    
+    - name: View List of NEDs from Files directory
+      debug: var=ned_list_raw
+
+    - name: Create List of ned names
+      set_fact:
+        ned_list: "{{ ned_list_raw.stdout_lines }}"
+
+    - name: Copy NED Installers
+      become_user: "{{ user }}"
+      copy: src={{ item }} dest=/home/{{ user }} owner={{ user }} group={{ user }}
+      loop: "{{ ned_list }}"
+
     - name: Create nso install Directory
       become_user: "{{ user }}"
       file: path=/home/{{ user }}/nso-install state=directory owner={{ user }} group={{ user }}
@@ -8,42 +26,35 @@
       become_user: "{{ user }}"
       copy: src=./files/nso-{{ nso_version }}.linux.x86_64.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
 
-    - name: Copy NXOS NED Installer
-      become_user: "{{ user }}"
-      copy: src=./files/ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
-
-    - name: Copy IOSXR NED Installer
-      become_user: "{{ user }}"
-      copy: src=./files/ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
-
-    - name: Copy IOS NED Installer
-      become_user: "{{ user }}"
-      copy: src=./files/ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}.signed.bin dest=/home/{{ user }} owner={{ user }} group={{ user }}
-
     - name: Extract Installer Bin from Signed Bin
+      command: "sh /home/{{ user }}/nso-{{ nso_version }}.linux.x86_64.signed.bin"
+      become_user: "{{ user }}"
+      ignore_errors: yes
+ 
+    - name: Extract NED Tar from Signed Bin
       command: "sh /home/{{ user }}/{{ item }}"
       become_user: "{{ user }}"
       ignore_errors: yes
-      register: nso_install
-      loop: 
-        - "nso-{{ nso_version }}.linux.x86_64.signed.bin"
-        - "ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}.signed.bin"
-        - "ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}.signed.bin"
-        - "ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}.signed.bin"
+      loop: "{{ ned_list }}"
+
+    - name: Get List of ned tar filenames
+      warn: no
+      shell: "rm *.tar.gz.signature"
+
+    - name: Get List of ned tar filenames
+      shell: "ls /home/{{ user }} | grep -e .*tar.gz"
+      register: ned_list_tar_raw
+
+    - name: Set Fact List of ned names
+      set_fact:
+        ned_list_tar: "{{ ned_list_tar_raw.stdout_lines }}"
 
     - name: Extract NEDs from tar.gz
-      command: "tar xf /home/{{ user }}/{{ item }}.tar.gz"
+      command: "tar xf /home/{{ user }}/{{ item }}"
       become_user: "{{ user }}"
       ignore_errors: yes
       register: nso_install
-      loop: 
-        - "ncs-{{ nso_version }}-cisco-nx-{{ nxos_ned_version }}"
-        - "ncs-{{ nso_version }}-cisco-iosxr-{{ iosxr_ned_version }}"
-        - "ncs-{{ nso_version }}-cisco-ios-{{ ios_ned_version }}"
-
-    - name: DEBUG nso INSTALL
-      debug:
-       var: nso_install
+      loop: "{{ ned_list_tar }}"
       
     - name: INSTALL NSO 
       command: "sh /home/{{ user }}/nso-{{ nso_version }}.linux.x86_64.installer.bin /home/{{ user }}/nso-install"
