@@ -80,35 +80,24 @@ As part of the Vagrant set up, I add a shared folder, in my case it is called `v
 The shared folder is also good for exporting or pulling in service packages for testing, make sure to change owners though...otherwise you might get permission issues. 
 
 
-## Known False Positive (errors)
-If you run vagrant provision more than once you will see this error, this is expected as it tries to unpack the installer in the location which already has NSO:
+## NSO Versions
 
-```
-TASK [INSTALL nso] *************************************************************
-fatal: [default]: FAILED! => {"changed": true, "cmd": ["sh", "/home/vagrant/nso-5.2.1.linux.x86_64.installer.bin", "/home/vagrant/nso-install"], "delta": "0:00:00.007180", "end": "2019-06-07 03:11:08.397758", "msg": "non-zero return code", "rc": 1, "start": "2019-06-07 03:11:08.390578", "stderr": "", "stderr_lines": [], "stdout": "ERROR ** /home/vagrant/nso-install is not empty, aborting installation", "stdout_lines": ["ERROR ** /home/vagrant/nso-install is not empty, aborting installation"]}
-...ignoring
+If you are trying to install a different version of NSO than the one this repo is designed for, double check the `build-vm.yml` file and update the `nso_version` variable:
 
-TASK [DEBUG nso INSTALL] *******************************************************
-ok: [default] => {
-    "nso_install": {
-        "changed": true,
-        "cmd": [
-            "sh",
-            "/home/vagrant/nso-5.2.1.linux.x86_64.installer.bin",
-            "/home/vagrant/nso-install"
-        ],
-        "delta": "0:00:00.007180",
-        "end": "2019-06-07 03:11:08.397758",
-        "failed": true,
-        "msg": "non-zero return code",
-        "rc": 1,
-        "start": "2019-06-07 03:11:08.390578",
-        "stderr": "",
-        "stderr_lines": [],
-        "stdout": "ERROR ** /home/vagrant/nso-install is not empty, aborting installation",
-        "stdout_lines": [
-            "ERROR ** /home/vagrant/nso-install is not empty, aborting installation"
-        ]
-    }
-}
+```yaml
+---
+- hosts: all
+  connection: paramiko
+  become: yes
+
+  vars:
+    nso_install_location: "/home/{{ ansible_ssh_user }}/nso-install"
+    nso_version: "UPDATE-ME-IF-NEEDED"
+    # for example for nso-5.2.1.linux.x86_64.installer.bin nso_version is "5.2.1"
+    user: vagrant
+
+  tasks:
+    - import_tasks: tasks/linux_packs.yml
+    - import_tasks: tasks/install_nso.yml
+
 ```
