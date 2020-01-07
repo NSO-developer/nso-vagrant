@@ -26,6 +26,8 @@ Though it should work on other systems...pretty standard stuff.
 > note, if you restart the VM after installing (rather than just suspending), you will need to turn on the NSO application `source $HOME/nso-install/ncsrc; cd $HOME/nso-run/; ncs;`, if you get the following error `Cannot bind to internal socket 127.0.0.1:4569 : address already in use
 Daemon died status=20`, then NSO is already running. 
 
+> also note: the installation process assumes the files are in the signed.bin, not installer.bin or .tar.gz for NED. You can update the ansible tasks if this is not the case for you. 
+
 ## Getting Started
 
 A couple of things. NSO when it is installed comes with a ton of documentation in the `nso-install/doc` directory. Check it out.
