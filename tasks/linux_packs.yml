@@ -23,6 +23,7 @@
           - fonts-inconsolata
           - python-setuptools
           - libxml2-utils
+          - xsltproc
           - ant
           - default-jdk
 
